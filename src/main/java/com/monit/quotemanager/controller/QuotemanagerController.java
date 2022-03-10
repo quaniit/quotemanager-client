@@ -14,65 +14,62 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/quotes")
 public class QuotemanagerController {
     
     @Autowired
     private QuoteManagerService quoteManagerService;
 
-    @GetMapping("/")
-	public String index() {
-		return "Index";
-	}
-
-    @GetMapping("/quotes")
+    @GetMapping()
     public List<QuoteImpl> findAll()
     {
         return quoteManagerService.findAll();
     }
 
-    @GetMapping("/quotes/symbol/{symbol}")
+    @GetMapping("/symbol/{symbol}")
     public List<QuoteImpl> findBySymbol(@PathVariable String symbol)
     {
         return quoteManagerService.findBySymbol(symbol);
     }
 
-    @GetMapping("/quotes/best/{symbol}")
+    @GetMapping("/best/{symbol}")
     public QuoteImpl findBestQuote(@PathVariable String symbol)
     {
         return (QuoteImpl) quoteManagerService.GetBestQuoteWithAvailableVolume(symbol);
     }
 
-    @PostMapping("/quotes")
+    @PostMapping()
     public void addQuote(@RequestBody QuoteImpl quote)
     {
         quoteManagerService.AddOrUpdateQuote(quote);
     }
 
-    @PostMapping("/quotes/trade")
+    @PostMapping("/trade")
     public TradeResultImpl ExecuteTrade(@RequestParam(value = "symbol") String symbol,
                                         @RequestParam(value = "volumeRequested") int volumeRequested)
     {
         return (TradeResultImpl) quoteManagerService.ExecuteTrade(symbol, volumeRequested);
     } 
 
-    @PutMapping("/quotes")
+    @PutMapping()
     public void updateQuote(@RequestBody QuoteImpl quote)
     {
         quoteManagerService.AddOrUpdateQuote(quote);
     }
 
-    @DeleteMapping("quotes/id/{id}")
+    @DeleteMapping("/id/{id}")
     public void deleteQuote(@PathVariable String id)
     {
         UUID uuid = UUID.fromString(id);
         quoteManagerService.RemoveQuote(uuid);
     }
 
-    @DeleteMapping("quotes/symbol/{symbol}")
+    @DeleteMapping("/symbol/{symbol}")
     public void deleteQuotesBySymbol(@PathVariable String symbol)
     {
         quoteManagerService.RemoveAllQuotes(symbol);

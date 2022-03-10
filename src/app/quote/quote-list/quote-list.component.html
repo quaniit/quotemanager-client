@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <section>
+                <header class="header">
+                </header>
+            </section>
+            <section class="main">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Price</th>
+                            <th>Available Volume</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let quote of quotes">
+                            <td>{{quote.symbol}}</td>
+                            <td>{{quote.price}}</td>
+                            <td>{{quote.availableVolume}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</div>
