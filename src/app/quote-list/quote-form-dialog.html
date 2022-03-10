@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Quote Information</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Symbol</mat-label>
+    <input matInput [(ngModel)]="local_data.quote.symbol"/>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Price</mat-label>
+    <input matInput [(ngModel)]="local_data.quote.price"/>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Volume Available</mat-label>
+    <input matInput [(ngModel)]="local_data.quote.availableVolume"/>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Expiration Date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="local_data.quote.expiration">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">No Thanks</button>
+  <button mat-button (click)="doAction()">Submit</button>
+</div>
