@@ -3,13 +3,16 @@ import { Router } from '@angular/router';
 import { QuoteService } from '../quote.service';
 import { Quote } from '../quote'; 
 
+
 @Component({
   selector: 'app-quote-list',
   templateUrl: './quote-list.component.html',
-  styleUrls: ['./quote-list.component.css'],
+  styleUrls: ['./quote-list.component.scss',],
   providers: [QuoteService]
 })
+
 export class QuoteListComponent implements OnInit {
+  columnDefs : string[] = ['symbol','price','volume','update','delete'];
   quotes: Quote[] = [];
 
   constructor(private router: Router,

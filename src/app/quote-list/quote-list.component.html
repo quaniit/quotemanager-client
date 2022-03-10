@@ -1,28 +1,36 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <section>
-                <header class="header">
-                </header>
-            </section>
-            <section class="main">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Price</th>
-                            <th>Available Volume</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let quote of quotes">
-                            <td>{{quote.symbol}}</td>
-                            <td>{{quote.price}}</td>
-                            <td>{{quote.availableVolume}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
-    </div>
-</div>
+<mat-table [dataSource]="quotes" class="mat-elevation-z8">
+    <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+        <mat-cell *matCellDef="let quote"> {{quote.symbol}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+        <mat-cell *matCellDef="let quote"> {{quote.price}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="volume">
+        <mat-header-cell  *matHeaderCellDef> Available Volume </mat-header-cell>
+        <mat-cell *matCellDef="let quote"> {{quote.availableVolume}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="update">
+        <mat-header-cell  *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let quote">
+            <button mat-icon-button color="accent" aria-label="Update">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+        <mat-header-cell  *matHeaderCellDef>
+            <button mat-icon-button color="secondary" aria-label="Add">
+                <mat-icon>add_box</mat-icon>
+            </button>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let quote">
+            <button mat-icon-button color="warn" aria-label="Delete" (click)="delete(quote)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="columnDefs"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnDefs;"></mat-row>
+</mat-table >

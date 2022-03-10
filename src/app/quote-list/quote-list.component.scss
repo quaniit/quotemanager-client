@@ -1,0 +1,15 @@
+@import '/src/styles.scss';
+
+@include mat-table-columns((
+    
+        symbol: (width: 6rem),
+        price: (width: 6rem),
+        volume: (width: 6rem),
+        update: (width: 2rem),
+        delete: (width: 2rem),
+    
+    ));
+
+.mat-table {
+    width:max-content;
+}
