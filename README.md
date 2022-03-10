@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 `./mvnw clean install`
 `./mvnw spring-boot:run`
 
-## Build
+## Node Build
 
 `ng build`
 `npm start`

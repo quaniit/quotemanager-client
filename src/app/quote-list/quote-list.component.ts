@@ -22,8 +22,14 @@ export class QuoteListComponent implements OnInit {
   getAllQuotes() {
     this.quoteService.findAll().subscribe(
       result => {
+        console.log(result);
       this.quotes = result;
       }
     )
+  }
+
+  delete(quote: Quote): void{
+      this.quotes = this.quotes.filter(q => q !== quote);
+      this.quoteService.deleteQuote(quote.id);
   }
 }

@@ -19,6 +19,7 @@ import { QuoteListComponent } from './quote-list/quote-list.component';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,
+  QuoteListComponent]
 })
 export class AppModule { }
