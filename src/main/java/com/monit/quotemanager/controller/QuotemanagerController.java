@@ -26,19 +26,19 @@ public class QuotemanagerController {
     private QuoteManagerService quoteManagerService;
 
     @GetMapping()
-    public List<QuoteImpl> findAll()
+    public List<QuoteImpl> getAll()
     {
         return quoteManagerService.findAll();
     }
 
     @GetMapping("/symbol/{symbol}")
-    public List<QuoteImpl> findBySymbol(@PathVariable String symbol)
+    public List<QuoteImpl> getBySymbol(@PathVariable String symbol)
     {
         return quoteManagerService.findBySymbol(symbol);
     }
 
     @GetMapping("/best/{symbol}")
-    public QuoteImpl findBestQuote(@PathVariable String symbol)
+    public QuoteImpl getBestQuote(@PathVariable String symbol)
     {
         return (QuoteImpl) quoteManagerService.GetBestQuoteWithAvailableVolume(symbol);
     }
