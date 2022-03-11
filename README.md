@@ -185,7 +185,3 @@ DELETE http://localhost:8080/api/quotes/symbol?symbol={symbol}
 ##### Response: 200 OK
 Quotes for [symbol supplied] successfully deleted
 
-* PUT updateQuote() - "/api/quotes"
-* DELETE deleteQuote() - "/id/{id}"
-* DELETE deleteQuotesBySymbol() - "/symbol/{symbol}"
-

@@ -1,0 +1,14 @@
+//Used with humao.rest-client in vscode
+
+POST http://localhost:8080/api/quotes HTTP/1.1
+content-type: application/json
+
+{
+    "symbol": "BA",
+    "price": "2.00",
+    "availableVolume":"100",
+    "expiration": "2022-01-01"
+}
+
+###
+GET http://localhost:8080/api/quotes
