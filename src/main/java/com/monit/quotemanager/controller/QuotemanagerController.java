@@ -8,9 +8,10 @@ import com.monit.quotemanager.model.TradeResultImpl;
 import com.monit.quotemanager.service.QuoteManagerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,48 +32,55 @@ public class QuotemanagerController {
         return quoteManagerService.findAll();
     }
 
-    @GetMapping("/symbol/{symbol}")
-    public List<QuoteImpl> getBySymbol(@PathVariable String symbol)
+    @GetMapping("/symbol")
+    public List<QuoteImpl> getBySymbol(@RequestParam(value = "symbol", required = true) String symbol)
     {
         return quoteManagerService.findBySymbol(symbol);
     }
 
-    @GetMapping("/best/{symbol}")
-    public QuoteImpl getBestQuote(@PathVariable String symbol)
+    @GetMapping("/best")
+    public QuoteImpl getBestQuote(@RequestParam(value = "symbol", required = true) String symbol)
     {
         return (QuoteImpl) quoteManagerService.GetBestQuoteWithAvailableVolume(symbol);
     }
 
     @PostMapping()
-    public void addQuote(@RequestBody QuoteImpl quote)
+    public ResponseEntity<String> addQuote(@RequestBody QuoteImpl quote)
     {
         quoteManagerService.AddOrUpdateQuote(quote);
+        return new ResponseEntity<String>(String.format("Quote for %s successfully added", quote.getSymbol()), HttpStatus.CREATED);
     }
 
     @PostMapping("/trade")
-    public TradeResultImpl ExecuteTrade(@RequestParam(value = "symbol") String symbol,
-                                        @RequestParam(value = "volumeRequested") int volumeRequested)
+    public TradeResultImpl ExecuteTrade(@RequestParam(value = "symbol", required = true) String symbol,
+                                        @RequestParam(value = "volumeRequested", required = true) int volumeRequested)
     {
         return (TradeResultImpl) quoteManagerService.ExecuteTrade(symbol, volumeRequested);
     } 
 
     @PutMapping()
-    public void updateQuote(@RequestBody QuoteImpl quote)
+    public ResponseEntity<String> updateQuote(@RequestBody QuoteImpl quote)
     {
         quoteManagerService.AddOrUpdateQuote(quote);
+        return new ResponseEntity<String>(String.format("Quote for %s successfully updated", quote.getSymbol()), HttpStatus.OK);
+
     }
 
-    @DeleteMapping("/id/{id}")
-    public void deleteQuote(@PathVariable String id)
+    @DeleteMapping("/id")
+    public ResponseEntity<String> deleteQuote(@RequestParam(value = "id", required = true) String id)
     {
         UUID uuid = UUID.fromString(id);
         quoteManagerService.RemoveQuote(uuid);
+        return new ResponseEntity<String>(String.format("Quote for %s successfully deleted", id), HttpStatus.OK);
+
     }
 
-    @DeleteMapping("/symbol/{symbol}")
-    public void deleteQuotesBySymbol(@PathVariable String symbol)
+    @DeleteMapping("/symbol")
+    public ResponseEntity<String> deleteQuotesBySymbol(@RequestParam(value = "symbol", required = true) String symbol)
     {
         quoteManagerService.RemoveAllQuotes(symbol);
+        return new ResponseEntity<String>(String.format("Quotes for %s successfully deleted", symbol), HttpStatus.OK);
+
     }
 
 }

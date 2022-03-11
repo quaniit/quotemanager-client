@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import javax.persistence.Entity;
 
@@ -12,9 +16,19 @@ public class QuoteImpl implements Quote{
 
     @Id
     private UUID id;
+
+    @NotBlank
     private String symbol;
+
+    @NotNull
+    @Positive
     private double price;
+
+    @NotNull
+    @PositiveOrZero
     private int availableVolume;
+
+    @NotNull
     private Date expiration;
 
     public QuoteImpl()
@@ -47,7 +61,7 @@ public class QuoteImpl implements Quote{
     }
 
     @Override
-    public void setId() {        
+    public void setId() {   
     }
 
     public void setId(UUID id)
